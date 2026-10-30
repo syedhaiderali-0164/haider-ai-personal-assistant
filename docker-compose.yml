@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: haider_ai_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: haider_ai_secure_password_2026
+      POSTGRES_DB: haider_ai
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: haider_ai_backend
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:haider_ai_secure_password_2026@db:5432/haider_ai
+      - SYNC_DATABASE_URL=postgresql://postgres:haider_ai_secure_password_2026@db:5432/haider_ai
+      - SECRET_KEY=production_haider_ai_secret_key_change_me_98f72
+      - BACKEND_CORS_ORIGINS=["http://localhost:80","http://localhost:5173","http://localhost:3000","*"]
+      - DEFAULT_AI_PROVIDER=openai
+      - DEFAULT_AI_BASE_URL=https://api.openai.com/v1
+      - DEFAULT_AI_MODEL=gpt-4o-mini
+    ports:
+      - "8000:8000"
+    volumes:
+      - uploads_data:/app/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: haider_ai_frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
+  uploads_data:
