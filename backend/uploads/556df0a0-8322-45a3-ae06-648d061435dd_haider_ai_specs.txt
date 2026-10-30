@@ -1,4 +1,0 @@
-HAIDER AI Architecture Overview.
-Developed by Syed Haider Ali, HAIDER AI is an enterprise-grade personal AI assistant.
-Key features include real-time streaming chat, multimodal RAG, and personal task management.
-The system uses FastAPI on the backend and React with TypeScript on the frontend.
