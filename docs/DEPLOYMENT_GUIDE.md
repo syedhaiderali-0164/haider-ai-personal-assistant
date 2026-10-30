@@ -51,7 +51,8 @@
    DEFAULT_AI_API_KEY=<optional_fallback_key>
    ```
 3. **Build Command:** `pip install -r backend/requirements.txt`
-4. **Start Command:** `uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT`
+4. **Start Command:** `uvicorn app.main:app --app-dir backend --host 0.0.0.0 --port $PORT`
+   *(or `uvicorn app.main:app --host 0.0.0.0 --port $PORT` if working directory is `backend`)*
 
 ---
 
@@ -71,3 +72,4 @@ Deploy in one command using Docker Compose:
 docker-compose up --build -d
 ```
 The application will be live at `http://localhost` (Frontend on port 80, Backend on port 8000, PostgreSQL on port 5432).
+

@@ -2,8 +2,8 @@ import json
 import time
 from typing import AsyncGenerator, List, Dict, Any, Optional
 import httpx
-from backend.app.core.config import settings
-from backend.app.models.settings import UserSettings
+from app.core.config import settings
+from app.models.settings import UserSettings
 
 class AIService:
     @staticmethod
@@ -265,3 +265,4 @@ class AIService:
         except Exception as e:
             yield f"data: {json.dumps({'error': f'Streaming error: {str(e)}'})}\n\n"
             yield "data: [DONE]\n\n"
+

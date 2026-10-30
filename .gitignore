@@ -12,6 +12,7 @@ __pycache__/
 .Python
 backend/venv/
 venv/
+.venv/
 env/
 ENV/
 build/

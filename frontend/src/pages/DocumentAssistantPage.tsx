@@ -378,3 +378,4 @@ export const DocumentAssistantPage: React.FC = () => {
     </div>
   );
 };
+

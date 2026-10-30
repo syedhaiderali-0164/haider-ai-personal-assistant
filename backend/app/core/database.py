@@ -1,7 +1,7 @@
 from typing import AsyncGenerator
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 from sqlalchemy.orm import declarative_base
-from backend.app.core.config import settings
+from app.core.config import settings
 
 # Engine configuration
 connect_args = {}
@@ -37,3 +37,4 @@ async def get_db() -> AsyncGenerator[AsyncSession, None]:
 async def init_db():
     async with async_engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+

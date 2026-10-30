@@ -1,9 +1,17 @@
+import sys
+from pathlib import Path
 from contextlib import asynccontextmanager
+
+# Ensure backend directory is in sys.path so 'app' is resolvable from any working directory
+backend_dir = str(Path(__file__).resolve().parent.parent)
+if backend_dir not in sys.path:
+    sys.path.insert(0, backend_dir)
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.app.core.config import settings
-from backend.app.core.database import init_db
-from backend.app.api.v1.router import api_router
+from app.core.config import settings
+from app.core.database import init_db
+from app.api.v1.router import api_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -58,3 +66,4 @@ async def health_check():
         "developer": settings.DEVELOPER_NAME,
         "version": settings.VERSION
     }
+

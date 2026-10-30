@@ -73,3 +73,4 @@ export const taskService = {
     return apiRequest<TaskStats>('/tasks/stats');
   },
 };
+

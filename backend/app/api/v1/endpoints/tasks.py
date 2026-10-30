@@ -5,11 +5,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy import desc, func
 
-from backend.app.core.database import get_db
-from backend.app.models.user import User
-from backend.app.models.task import Task
-from backend.app.schemas.task import TaskCreate, TaskUpdate, TaskOut, TaskStatsOut
-from backend.app.api.deps import get_current_user
+from app.core.database import get_db
+from app.models.user import User
+from app.models.task import Task
+from app.schemas.task import TaskCreate, TaskUpdate, TaskOut, TaskStatsOut
+from app.api.deps import get_current_user
 
 router = APIRouter()
 
@@ -156,3 +156,4 @@ async def delete_task(
     await db.delete(task)
     await db.commit()
     return {"message": "Task deleted successfully."}
+

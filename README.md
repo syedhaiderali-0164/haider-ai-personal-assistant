@@ -143,8 +143,11 @@ pip install -r requirements.txt
 # Run database migrations
 alembic upgrade head
 
-# Start FastAPI server
-uvicorn backend.app.main:app --reload --port 8000
+# Start FastAPI server (from backend directory)
+uvicorn app.main:app --reload --port 8000
+
+# Or start directly from the project root:
+# uvicorn app.main:app --app-dir backend --reload --port 8000
 ```
 Backend will be live at `http://127.0.0.1:8000` with Swagger documentation at `http://127.0.0.1:8000/docs`.
 
@@ -219,3 +222,4 @@ docker-compose up --build -d
 ## 📄 License
 
 This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+

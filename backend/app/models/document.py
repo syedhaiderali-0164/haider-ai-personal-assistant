@@ -2,7 +2,7 @@ import uuid
 from datetime import datetime, timezone
 from sqlalchemy import Column, String, Integer, DateTime, ForeignKey, Text
 from sqlalchemy.orm import relationship
-from backend.app.core.database import Base
+from app.core.database import Base
 
 class Document(Base):
     __tablename__ = "documents"
@@ -34,3 +34,4 @@ class DocumentChunk(Base):
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
 
     document = relationship("Document", back_populates="chunks")
+

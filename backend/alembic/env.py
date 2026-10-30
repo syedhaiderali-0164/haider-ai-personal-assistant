@@ -5,11 +5,15 @@ from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from alembic import context
 
-# Ensure workspace root is in path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+# Ensure backend directory and workspace root are in sys.path
+backend_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+root_dir = os.path.abspath(os.path.join(backend_dir, ".."))
+for d in (backend_dir, root_dir):
+    if d not in sys.path:
+        sys.path.insert(0, d)
 
-from backend.app.core.config import settings
-from backend.app.models import Base
+from app.core.config import settings
+from app.models import Base
 
 config = context.config
 

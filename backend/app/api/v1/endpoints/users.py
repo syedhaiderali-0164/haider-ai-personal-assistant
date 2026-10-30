@@ -3,15 +3,15 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy import func
 
-from backend.app.core.database import get_db
-from backend.app.core.security import verify_password, get_password_hash
-from backend.app.models.user import User
-from backend.app.models.conversation import Conversation
-from backend.app.models.message import Message
-from backend.app.models.document import Document
-from backend.app.models.task import Task
-from backend.app.schemas.user import UserOut, UserUpdate, UserPasswordUpdate
-from backend.app.api.deps import get_current_user
+from app.core.database import get_db
+from app.core.security import verify_password, get_password_hash
+from app.models.user import User
+from app.models.conversation import Conversation
+from app.models.message import Message
+from app.models.document import Document
+from app.models.task import Task
+from app.schemas.user import UserOut, UserUpdate, UserPasswordUpdate
+from app.api.deps import get_current_user
 
 router = APIRouter()
 
@@ -84,3 +84,4 @@ async def get_user_stats(
         "total_tasks": t_count,
         "completed_tasks": tc_count
     }
+

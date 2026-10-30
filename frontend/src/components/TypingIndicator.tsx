@@ -15,3 +15,4 @@ export const TypingIndicator: React.FC = () => {
     </div>
   );
 };
+

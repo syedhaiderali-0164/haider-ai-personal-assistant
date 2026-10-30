@@ -6,12 +6,12 @@ from sqlalchemy.future import select
 from sqlalchemy.orm import selectinload
 from sqlalchemy import desc, func
 
-from backend.app.core.database import get_db
-from backend.app.models.user import User
-from backend.app.models.conversation import Conversation
-from backend.app.models.message import Message
-from backend.app.schemas.conversation import ConversationCreate, ConversationUpdate, ConversationOut, ConversationDetailOut
-from backend.app.api.deps import get_current_user
+from app.core.database import get_db
+from app.models.user import User
+from app.models.conversation import Conversation
+from app.models.message import Message
+from app.schemas.conversation import ConversationCreate, ConversationUpdate, ConversationOut, ConversationDetailOut
+from app.api.deps import get_current_user
 
 router = APIRouter()
 
@@ -160,3 +160,4 @@ async def delete_conversation(
     await db.delete(conv)
     await db.commit()
     return {"message": "Conversation deleted successfully."}
+

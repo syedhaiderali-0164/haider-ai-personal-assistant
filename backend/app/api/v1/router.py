@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from backend.app.api.v1.endpoints import (
+from app.api.v1.endpoints import (
     auth,
     users,
     settings,
@@ -24,3 +24,4 @@ api_router.include_router(documents.router, prefix="/documents", tags=["Document
 api_router.include_router(tasks.router, prefix="/tasks", tags=["Task Management"])
 api_router.include_router(tools.router, prefix="/tools", tags=["AI Tools"])
 api_router.include_router(voice.router, prefix="/voice", tags=["Voice Assistant"])
+

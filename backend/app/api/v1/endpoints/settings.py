@@ -2,13 +2,13 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
-from backend.app.core.database import get_db
-from backend.app.core.security import mask_api_key
-from backend.app.models.user import User
-from backend.app.models.settings import UserSettings
-from backend.app.schemas.settings import UserSettingsUpdate, UserSettingsOut, AIConnectionTestRequest, AIConnectionTestResponse
-from backend.app.services.ai_service import AIService
-from backend.app.api.deps import get_current_user
+from app.core.database import get_db
+from app.core.security import mask_api_key
+from app.models.user import User
+from app.models.settings import UserSettings
+from app.schemas.settings import UserSettingsUpdate, UserSettingsOut, AIConnectionTestRequest, AIConnectionTestResponse
+from app.services.ai_service import AIService
+from app.api.deps import get_current_user
 
 router = APIRouter()
 
@@ -131,3 +131,4 @@ async def test_connection(
         api_key=api_key
     )
     return AIConnectionTestResponse(**res)
+

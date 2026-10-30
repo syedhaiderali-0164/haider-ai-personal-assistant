@@ -1,11 +1,19 @@
+import sys
+import os
+from pathlib import Path
 import pytest
 import pytest_asyncio
 from httpx import AsyncClient, ASGITransport
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 
-from backend.app.main import app
-from backend.app.core.database import Base, get_db
-from backend.app.models.user import User
+# Ensure backend directory is in sys.path
+backend_dir = str(Path(__file__).resolve().parent.parent)
+if backend_dir not in sys.path:
+    sys.path.insert(0, backend_dir)
+
+from app.main import app
+from app.core.database import Base, get_db
+from app.models.user import User
 
 # Use an in-memory or test sqlite database
 TEST_DATABASE_URL = "sqlite+aiosqlite:///./test_haider_ai.db"

@@ -4,13 +4,13 @@ from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
-from backend.app.core.config import settings
-from backend.app.core.database import get_db
-from backend.app.core.security import verify_password, get_password_hash, create_access_token, create_refresh_token, decode_token
-from backend.app.models.user import User
-from backend.app.models.settings import UserSettings
-from backend.app.schemas.user import UserCreate, UserLogin, UserOut, Token
-from backend.app.api.deps import get_current_user
+from app.core.config import settings
+from app.core.database import get_db
+from app.core.security import verify_password, get_password_hash, create_access_token, create_refresh_token, decode_token
+from app.models.user import User
+from app.models.settings import UserSettings
+from app.schemas.user import UserCreate, UserLogin, UserOut, Token
+from app.api.deps import get_current_user
 
 router = APIRouter()
 
@@ -112,3 +112,4 @@ async def refresh_token(token_data: dict, db: AsyncSession = Depends(get_db)):
 @router.get("/me", response_model=UserOut)
 async def get_me(current_user: User = Depends(get_current_user)):
     return current_user
+

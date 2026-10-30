@@ -88,3 +88,4 @@
 | `POST` | `/tools/coding` | Code explain, debug, improve, and generation | Bearer JWT |
 | `POST` | `/tools/study` | Topic explanation, interactive MCQs, notes | Bearer JWT |
 | `POST` | `/tools/productivity` | Daily planning, project task breakdown | Bearer JWT |
+

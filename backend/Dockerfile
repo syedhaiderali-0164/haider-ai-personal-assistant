@@ -3,7 +3,7 @@ FROM python:3.12-slim
 # Prevent Python from writing .pyc and enable unbuffered logging
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ENV PYTHONPATH=/app
+ENV PYTHONPATH=/app/backend:/app
 
 WORKDIR /app
 
@@ -28,4 +28,5 @@ RUN mkdir -p /app/uploads
 EXPOSE 8000
 
 # Start server
-CMD ["uvicorn", "backend.app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "app.main:app", "--app-dir", "backend", "--host", "0.0.0.0", "--port", "8000"]
+

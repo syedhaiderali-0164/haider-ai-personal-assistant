@@ -7,15 +7,15 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy.orm import selectinload
 
-from backend.app.core.database import get_db, AsyncSessionLocal
-from backend.app.models.user import User
-from backend.app.models.settings import UserSettings
-from backend.app.models.conversation import Conversation
-from backend.app.models.message import Message
-from backend.app.models.usage import AIUsageLog
-from backend.app.schemas.message import ChatStreamRequest
-from backend.app.services.ai_service import AIService
-from backend.app.api.deps import get_current_user
+from app.core.database import get_db, AsyncSessionLocal
+from app.models.user import User
+from app.models.settings import UserSettings
+from app.models.conversation import Conversation
+from app.models.message import Message
+from app.models.usage import AIUsageLog
+from app.schemas.message import ChatStreamRequest
+from app.services.ai_service import AIService
+from app.api.deps import get_current_user
 
 router = APIRouter()
 
@@ -162,3 +162,4 @@ async def chat_stream(
             "X-Accel-Buffering": "no"
         }
     )
+

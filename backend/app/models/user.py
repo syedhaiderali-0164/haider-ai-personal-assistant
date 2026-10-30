@@ -2,7 +2,7 @@ import uuid
 from datetime import datetime, timezone
 from sqlalchemy import Column, String, Boolean, DateTime
 from sqlalchemy.orm import relationship
-from backend.app.core.database import Base
+from app.core.database import Base
 
 class User(Base):
     __tablename__ = "users"
@@ -22,3 +22,4 @@ class User(Base):
     documents = relationship("Document", back_populates="user", cascade="all, delete-orphan")
     tasks = relationship("Task", back_populates="user", cascade="all, delete-orphan")
     usage_logs = relationship("AIUsageLog", back_populates="user", cascade="all, delete-orphan")
+

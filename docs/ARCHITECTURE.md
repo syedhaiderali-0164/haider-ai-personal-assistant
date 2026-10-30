@@ -66,3 +66,4 @@ HAIDER AI is architected as a modular, decoupled full-stack platform designed fo
 - **Authentication:** Password hashing with bcrypt. Bearer JWT access and refresh tokens.
 - **Credential Storage:** User-configured API keys are securely stored server-side and masked (`sk-••••89`) when retrieved by the client. Keys are never exposed in browser localStorage, query parameters, or client-side JavaScript.
 - **Resource Ownership:** Every database query filters by `user_id == current_user.id`, ensuring complete multi-tenant isolation.
+

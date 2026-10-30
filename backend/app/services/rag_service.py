@@ -7,8 +7,8 @@ from pypdf import PdfReader
 from docx import Document as DocxDocument
 import openpyxl
 import csv
-from backend.app.services.ai_service import AIService
-from backend.app.models.settings import UserSettings
+from app.services.ai_service import AIService
+from app.models.settings import UserSettings
 
 class RAGService:
     @staticmethod

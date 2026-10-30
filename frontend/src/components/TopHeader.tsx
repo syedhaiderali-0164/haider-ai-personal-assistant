@@ -62,3 +62,4 @@ export const TopHeader: React.FC<TopHeaderProps> = ({ onOpenMobileMenu }) => {
     </header>
   );
 };
+

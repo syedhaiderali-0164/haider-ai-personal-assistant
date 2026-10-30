@@ -2,11 +2,11 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
-from backend.app.core.database import get_db
-from backend.app.models.user import User
-from backend.app.models.settings import UserSettings
-from backend.app.models.usage import AIUsageLog
-from backend.app.schemas.tools import (
+from app.core.database import get_db
+from app.models.user import User
+from app.models.settings import UserSettings
+from app.models.usage import AIUsageLog
+from app.schemas.tools import (
     WritingAssistantRequest,
     SummarizerRequest,
     TranslatorRequest,
@@ -15,8 +15,8 @@ from backend.app.schemas.tools import (
     ProductivityAssistantRequest,
     ToolExecutionResponse
 )
-from backend.app.services.ai_service import AIService
-from backend.app.api.deps import get_current_user
+from app.services.ai_service import AIService
+from app.api.deps import get_current_user
 
 router = APIRouter()
 
@@ -219,3 +219,4 @@ async def productivity_assistant(
     await db.commit()
 
     return ToolExecutionResponse(feature="productivity", result=result, metadata={"action": req.action})
+

@@ -5,11 +5,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from jose import jwt, JWTError
 
-from backend.app.core.config import settings
-from backend.app.core.database import get_db
-from backend.app.core.security import decode_token
-from backend.app.models.user import User
-from backend.app.schemas.user import TokenPayload
+from app.core.config import settings
+from app.core.database import get_db
+from app.core.security import decode_token
+from app.models.user import User
+from app.schemas.user import TokenPayload
 
 oauth2_scheme = OAuth2PasswordBearer(
     tokenUrl=f"{settings.API_V1_STR}/auth/login"
@@ -53,3 +53,4 @@ async def get_current_active_superuser(
             status_code=403, detail="The user doesn't have enough privileges"
         )
     return current_user
+

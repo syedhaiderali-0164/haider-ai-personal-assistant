@@ -109,3 +109,4 @@ export interface ToolResult {
   result: string;
   metadata?: Record<string, any>;
 }
+

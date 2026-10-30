@@ -2,7 +2,7 @@ from datetime import datetime, timedelta, timezone
 from typing import Any, Union, Optional
 from jose import jwt, JWTError
 from passlib.context import CryptContext
-from backend.app.core.config import settings
+from app.core.config import settings
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -53,3 +53,4 @@ def mask_api_key(key: Optional[str]) -> str:
     if len(key) <= 8:
         return "••••••••"
     return f"{key[:4]}••••••••{key[-4:]}"
+
