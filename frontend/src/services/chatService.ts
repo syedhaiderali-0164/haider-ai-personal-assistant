@@ -1,4 +1,4 @@
-import { apiRequest, getToken } from './api';
+import { apiRequest, getToken, API_BASE } from './api';
 import { Conversation, Message } from '../types';
 
 export interface StreamChatParams {
@@ -79,7 +79,7 @@ export const chatService = {
     }
 
     try {
-      const response = await fetch('/api/v1/chat/stream', {
+      const response = await fetch(`${API_BASE}/chat/stream`, {
         method: 'POST',
         headers,
         body: JSON.stringify({

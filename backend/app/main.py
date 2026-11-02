@@ -1,3 +1,4 @@
+import os
 import sys
 from pathlib import Path
 from contextlib import asynccontextmanager
@@ -15,6 +16,8 @@ from app.api.v1.router import api_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # Ensure upload directory exists
+    os.makedirs(settings.UPLOAD_DIR, exist_ok=True)
     # Initialize DB tables on startup
     await init_db()
     yield
@@ -33,10 +36,15 @@ app = FastAPI(
     openapi_url="/openapi.json"
 )
 
-# CORS middleware
+# CORS middleware: explicitly configured trusted origins with credentials support
+# Filter out any accidental wildcard '*' to comply with browser CORS specifications
+cors_origins = [str(origin).rstrip("/") for origin in settings.BACKEND_CORS_ORIGINS if origin and origin != "*"]
+if not cors_origins and settings.ENVIRONMENT.lower() == "development":
+    cors_origins = ["http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5173", "http://127.0.0.1:3000"]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.BACKEND_CORS_ORIGINS,
+    allow_origins=cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

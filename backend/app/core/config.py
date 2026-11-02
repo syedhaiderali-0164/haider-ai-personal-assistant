@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     DEVELOPER_LINKEDIN: str = "https://www.linkedin.com/in/haider-ali-1447bb3a/"
     VERSION: str = "1.0.0"
     API_V1_STR: str = "/api/v1"
+    ENVIRONMENT: str = "development"
     
     # Security
     SECRET_KEY: str = "haider_ai_super_secret_jwt_key_change_in_production_2026_x89f72"
@@ -22,14 +23,31 @@ class Settings(BaseSettings):
     DATABASE_URL: str = "sqlite+aiosqlite:///./haider_ai.db"
     SYNC_DATABASE_URL: str = "sqlite:///./haider_ai.db"
     
-    # CORS
+    # CORS Configuration
     BACKEND_CORS_ORIGINS: List[str] = [
         "http://localhost:5173",
         "http://localhost:3000",
         "http://127.0.0.1:5173",
-        "http://127.0.0.1:3000",
-        "*"
+        "http://127.0.0.1:3000"
     ]
+    
+    @field_validator("BACKEND_CORS_ORIGINS", mode="before")
+    @classmethod
+    def assemble_cors_origins(cls, v: Union[str, List[str]]) -> List[str]:
+        if isinstance(v, str):
+            v = v.strip()
+            if v.startswith("[") and v.endswith("]"):
+                import json
+                try:
+                    parsed = json.loads(v)
+                    if isinstance(parsed, list):
+                        return [str(i).strip().rstrip("/") for i in parsed if str(i).strip()]
+                except Exception:
+                    pass
+            return [i.strip().rstrip("/") for i in v.split(",") if i.strip()]
+        elif isinstance(v, (list, tuple)):
+            return [str(i).strip().rstrip("/") for i in v if str(i).strip()]
+        return []
     
     # File Storage
     UPLOAD_DIR: str = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "uploads")
