@@ -40,7 +40,13 @@ app = FastAPI(
 # Filter out any accidental wildcard '*' to comply with browser CORS specifications
 cors_origins = [str(origin).rstrip("/") for origin in settings.BACKEND_CORS_ORIGINS if origin and origin != "*"]
 if not cors_origins and settings.ENVIRONMENT.lower() == "development":
-    cors_origins = ["http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5173", "http://127.0.0.1:3000"]
+    cors_origins = [
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "http://127.0.0.1:5173",
+        "http://127.0.0.1:3000",
+        "https://frontend-delta-plum-20.vercel.app"
+    ]
 
 app.add_middleware(
     CORSMiddleware,
@@ -50,10 +56,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Include API v1 Router
+# Include API v1 Router at /api/v1 only
 app.include_router(api_router, prefix=settings.API_V1_STR)
 
 @app.get("/", tags=["Root"])
+@app.get("/api", tags=["Root"])
 async def root():
     return {
         "product": settings.PROJECT_NAME,
@@ -67,6 +74,7 @@ async def root():
     }
 
 @app.get("/health", tags=["Health"])
+@app.get("/api/health", tags=["Health"])
 async def health_check():
     return {
         "status": "healthy",

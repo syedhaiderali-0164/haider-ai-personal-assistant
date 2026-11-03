@@ -1,4 +1,5 @@
 import os
+import tempfile
 from typing import List, Union
 from pydantic import AnyHttpUrl, field_validator
 from pydantic_settings import BaseSettings
@@ -28,7 +29,8 @@ class Settings(BaseSettings):
         "http://localhost:5173",
         "http://localhost:3000",
         "http://127.0.0.1:5173",
-        "http://127.0.0.1:3000"
+        "http://127.0.0.1:3000",
+        "https://frontend-delta-plum-20.vercel.app"
     ]
     
     @field_validator("BACKEND_CORS_ORIGINS", mode="before")
@@ -49,8 +51,12 @@ class Settings(BaseSettings):
             return [str(i).strip().rstrip("/") for i in v if str(i).strip()]
         return []
     
-    # File Storage
-    UPLOAD_DIR: str = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "uploads")
+    # File Storage: use /tmp on Vercel/serverless environments, otherwise local uploads folder
+    UPLOAD_DIR: str = (
+        os.path.join(tempfile.gettempdir(), "haider_ai_uploads")
+        if os.environ.get("VERCEL")
+        else os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "uploads")
+    )
     MAX_UPLOAD_SIZE_MB: int = 25
     
     # Default AI Settings
